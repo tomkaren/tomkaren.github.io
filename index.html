@@ -1,85 +1,671 @@
 <!DOCTYPE html>
-<!-- This page is adapted from w3schools "How to make a link tree website https://www.w3schools.com/howto/howto_website_create_linktree.asp" -->
 <html lang="en">
-
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Add your name below -->
-  <title>Thomas Karen</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Thomas Karen — Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #faf8f4;
+      --warm-white: #ffffff;
+      --ink: #1c1a17;
+      --ink-muted: #6b6760;
+      --ink-faint: #b0ada8;
+      --accent: #c85a2a;
+      --accent-light: #f5ede7;
+      --accent-hover: #a84820;
+      --border: #e8e4de;
+      --card-bg: #ffffff;
+      --tag-bg: #f0ece6;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--cream);
+      color: var(--ink);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(250, 248, 244, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: 'Lora', serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--ink-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      letter-spacing: 0.01em;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 6rem 2rem 4rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 4rem;
+      align-items: center;
+      width: 100%;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-bio {
+      font-size: 1.05rem;
+      color: var(--ink-muted);
+      line-height: 1.75;
+      margin-bottom: 2rem;
+      max-width: 480px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 22px;
+      border-radius: 100px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 10px 22px;
+      border-radius: 100px;
+      border: 1.5px solid var(--border);
+      font-size: 0.9rem;
+      font-weight: 400;
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--ink-muted);
+      color: var(--ink);
+      transform: translateY(-1px);
+    }
+
+    /* Hero photo */
+    .hero-photo-wrap {
+      position: relative;
+    }
+
+    .hero-photo-frame {
+      width: 260px;
+      height: 310px;
+      border-radius: 140px 140px 100px 100px;
+      overflow: hidden;
+      background: var(--tag-bg);
+      position: relative;
+      border: 3px solid var(--border);
+    }
+
+    .hero-photo-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--ink-faint);
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .hero-photo-placeholder svg {
+      width: 52px;
+      height: 52px;
+      opacity: 0.4;
+    }
+
+    .hero-photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-deco {
+      position: absolute;
+      bottom: -16px;
+      right: -16px;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      border: 3px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Lora', serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-align: center;
+      line-height: 1.3;
+      letter-spacing: 0.02em;
+    }
+
+    /* SECTION SHARED */
+    section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-family: 'Lora', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin-bottom: 3rem;
+      margin-top: 1rem;
+    }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: box-shadow 0.25s, transform 0.2s, border-color 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--accent);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .project-card:hover {
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      transform: translateY(-3px);
+      border-color: var(--accent-light);
+    }
+
+    .project-card:hover::before { opacity: 1; }
+
+    .project-number {
+      font-family: 'Lora', serif;
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: var(--border);
+      line-height: 1;
+      margin-bottom: 1rem;
+      letter-spacing: -0.03em;
+      transition: color 0.25s;
+    }
+
+    .project-card:hover .project-number { color: var(--accent-light); }
+
+    .project-card h3 {
+      font-family: 'Lora', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.01em;
+    }
+
+    .project-card p {
+      font-size: 0.9rem;
+      color: var(--ink-muted);
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      background: var(--tag-bg);
+      color: var(--ink-muted);
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 100px;
+      letter-spacing: 0.01em;
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--ink-muted);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    .about-text p:last-child { margin-bottom: 0; }
+
+    .about-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .about-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .about-card-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 0.4rem;
+    }
+
+    .about-card-value {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .about-card-value a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .about-card-value a:hover { text-decoration: underline; }
+
+    /* CONNECT / FOOTER */
+    .connect-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 2rem 6rem;
+    }
+
+    .connect-inner {
+      background: var(--ink);
+      border-radius: 20px;
+      padding: 3.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .connect-inner h2 {
+      font-family: 'Lora', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
+    }
+
+    .connect-inner p {
+      color: rgba(255,255,255,0.55);
+      font-size: 0.95rem;
+    }
+
+    .connect-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-light {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 10px 22px;
+      border-radius: 100px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+
+    .btn-light:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      padding: 10px 22px;
+      border-radius: 100px;
+      border: 1.5px solid rgba(255,255,255,0.2);
+      font-size: 0.875rem;
+      font-weight: 400;
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(255,255,255,0.5);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--ink-faint);
+      border-top: 1px solid var(--border);
+    }
+
+    /* SCROLL ANIMATIONS */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 700px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-photo-wrap { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .connect-inner { padding: 2rem; flex-direction: column; align-items: flex-start; }
+      .nav-links { display: none; }
+    }
+  </style>
 </head>
+<body>
 
-<body class="main-text-color">
-  <!-- Content container. Everything except footer goes here -->
-  <div class="container">
-    <!-- Image and name container. Put your replacement photo—which you should crop to be square—in the images folder, then change the source attribute to images/yourportraitfilename.jpg. This path says, "Look in the images folder for yourportraitfilename.jpg." Be sure to change the alt text, too. -->
-    <div class="image-container">
-      <img src="images/cake.jpg" alt="Photo of a small cake. by Thomas Karen">
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">TK</a>
+    <ul class="nav-links">
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#connect">Connect</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <span class="hero-tag">CS @ Virginia Tech</span>
+        <h1>Hi, I'm<br><em>Thomas Karen.</em></h1>
+        <p class="hero-bio">
+          Junior year Comp-Sci student driven to build things that matter.
+          I love taking on new challenges — from data systems to tooling that makes developers' lives easier.
+        </p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn-primary">See my work ↓</a>
+          <a href="https://www.linkedin.com/in/thomas-karen-4l/" class="btn-secondary" target="_blank">LinkedIn ↗</a>
+        </div>
+      </div>
+      <div class="hero-photo-wrap">
+        <div class="hero-photo-frame">
+          <!-- Replace the placeholder below with: <img src="images/your-photo.jpg" alt="Thomas Karen"> -->
+          <div class="hero-photo-placeholder">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="32" cy="24" r="12" stroke="currentColor" stroke-width="2"/>
+              <path d="M8 56c0-13.255 10.745-24 24-24s24 10.745 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span>Your photo here</span>
+          </div>
+        </div>
+        <div class="hero-deco">VT<br>Junior</div>
+      </div>
     </div>
-    <div class="intro">
-      I'm <span class="name"><strong>Thomas Karen</strong></span>, a junior year Comp-Sci student at Virginia Tech. I am driven to make change and always excited to take the next step.
-    </div>
-    <div class="section-header">
-      <h1>My work</h1>
-    </div>
-    <!-- Replace the # inside of the href="#" with your links. -->
-    <div class="links-container">
-      <div class="button toggle">Blog post</div>
-      <div class="slidedown">
-        <div class="description">
-          <h2>The search for Soul Food in Campus Dining</h2>
-          <p>Are you a college student? Do you eat food on campus? Do you enjoy it? Read my blog post about campus food!</p>
-          <a href="https://medium.com/@thomask88/the-search-for-soul-food-in-campus-dining-61cd5e2543f9" class="external-link" target="_blank">Read</a>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-label">What I've built</p>
+    <h2 class="section-title">Projects</h2>
+    <hr class="section-divider">
+
+    <div class="projects-grid">
+
+      <div class="project-card fade-up">
+        <div class="project-number">01</div>
+        <h3>Rideshare Database System</h3>
+        <p>
+          A relational database application modeling a rideshare platform — handling users, drivers,
+          trips, and payments. Built to explore schema design, query optimization, and real-world
+          data relationships at scale.
+        </p>
+        <div class="project-tags">
+          <span class="tag">SQL</span>
+          <span class="tag">Database Design</span>
+          <span class="tag">ER Modeling</span>
         </div>
       </div>
 
-      <div class="button toggle">Video</div>
-      <div class="slidedown">
-        <div class="description">
-          <h2>Leg Rehab Routine</h2>
-          <p>After a 4-year long high school sports career, I have had more than my fair share of injuries. Join me for a simple rehabilitative leg workout.</p>
-          <a href="https://www.youtube.com/watch?v=H95b0Gf8l7w" class="external-link" target="_blank">Watch</a>
+      <div class="project-card fade-up" style="transition-delay: 0.1s">
+        <div class="project-number">02</div>
+        <h3>Job Queue Manager</h3>
+        <p>
+          A background job processing system for managing and scheduling asynchronous tasks.
+          Supports job prioritization, retry logic, and status tracking — the kind of infrastructure
+          that keeps applications responsive under load.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Systems</span>
+          <span class="tag">Concurrency</span>
+          <span class="tag">Backend</span>
         </div>
       </div>
 
-      <div class="button toggle">Podcast</div>
-      <div class="slidedown">
-        <div class="description">
-          <h2>The Effect of Artificial Intelligence on Education</h2>
-          <p>Did you like the video I linked? Did you even watch it?
-             We have a discussion about the effects of an effective learning 
-             cheat code, and how we think the landscape for AI usage will change.
-          </p>
-          <a href="#" class="external-link" target="_blank">Listen</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="section-label">A bit about me</p>
+    <h2 class="section-title">About</h2>
+    <hr class="section-divider">
+
+    <div class="about-grid fade-up">
+      <div class="about-text">
+        <p>
+          I'm Thomas, a junior Computer Science student at Virginia Tech. I'm drawn to the
+          systems side of software — the infrastructure, the data, the things that have to
+          work reliably so everything else can run.
+        </p>
+        <p>
+          Outside of class projects, I'm always looking for the next challenge to sink my teeth
+          into. After a long high school sports career, I carry that team-first, keep-pushing
+          mindset into everything I do — including software.
+        </p>
+        <p>
+          I'm currently looking for internships and opportunities where I can contribute,
+          grow, and ship things that make a real difference.
+        </p>
+      </div>
+      <div class="about-sidebar">
+        <div class="about-card">
+          <div class="about-card-label">Education</div>
+          <div class="about-card-value">Virginia Tech — B.S. Computer Science</div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-label">Status</div>
+          <div class="about-card-value">Junior year · Open to internships</div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-label">Interests</div>
+          <div class="about-card-value">Systems, databases, backend engineering</div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-label">Resume</div>
+          <div class="about-card-value">
+            <a href="https://docs.google.com/document/d/1K83PBqjaeTUg4tQuBOiUKKylb13JrUono3-jpBwNh-4/edit?usp=sharing" target="_blank">View resume ↗</a>
+          </div>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- Replace # with PDF from Google Docs, or replace the entire section with whatever you want. Or delete it! Or add another section below it!-->
-    <div class="section-header">
-      <h1>About me</h1>
+  <!-- CONNECT -->
+  <div class="connect-section" id="connect">
+    <div class="connect-inner fade-up">
+      <div>
+        <h2>Let's connect.</h2>
+        <p>I'm always happy to chat about projects, opportunities, or just CS in general.</p>
+      </div>
+      <div class="connect-links">
+        <a href="https://www.linkedin.com/in/thomas-karen-4l/" class="btn-light" target="_blank">LinkedIn ↗</a>
+        <a href="https://docs.google.com/document/d/1K83PBqjaeTUg4tQuBOiUKKylb13JrUono3-jpBwNh-4/edit?usp=sharing" class="btn-ghost" target="_blank">Resume ↗</a>
+      </div>
     </div>
-
-    <div class="links-container">
-      <a href="https://docs.google.com/document/d/1K83PBqjaeTUg4tQuBOiUKKylb13JrUono3-jpBwNh-4/edit?usp=sharing" class="button" target="_blank">Resume</a>
-    </div>
-
-    <div class="links-container">
-      <a href="https://www.linkedin.com/in/thomas-karen-4l/" class="button" target="_blank">LinkedIn</a>
-    </div>
-    
-
   </div>
-  <div class="footer">
-    <p>© Thomas Karen, 2024. Based on a design by <a
-        href="https://www.w3schools.com/howto/howto_website_create_linktree.asp" target="_blank">w3schools</a>.
-    </p>
-  </div>
-  <script type="text/javascript" src="js/slider.js"></script>
+
+  <footer>
+    © Thomas Karen, 2025
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+
 </body>
-
 </html>
